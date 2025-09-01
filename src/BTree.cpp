@@ -43,7 +43,26 @@ class BTree {
 
 
     private:
-
+        void destroy(Node<Type> *curr);
 };
+
+template <class Type>
+BTree<Type>::BTree(){
+    root = nullptr;
+}
+
+template <class Type>
+BTree<Type>::~BTree(){
+    destroy(root);
+}
+
+template <class Type>
+void BTree<Type>::destroy(Node<Type> *curr){
+    if(curr != nullptr){
+        destroy(curr->left);
+        destroy(curr->right);
+        delete curr;
+    }
+}
 
 #endif
