@@ -22,7 +22,7 @@ class BTree {
 
         ~BTree(); //Destructor: Deallocates memory
 
-        void insert(Type data){}; //Inserts a node into the tree
+        void insert(Type item); //Inserts a node into the tree
 
         void preOrder(); //Displays a pre-order traversal of the tree
 
@@ -48,13 +48,13 @@ class BTree {
 };
 
 template <class Type>
-BTree<Type>::BTree(const BTree<Type>&){
+BTree<Type>::BTree(const BTree<Type>&b){
     copyTree(b.root);
 
 }
 
 template <class Type>
-BTree<Type> BTree<Type>::operator=(const BTree<Type>&){
+BTree<Type> BTree<Type>::operator=(const BTree<Type>&b){
     copyTree(b.root);
     return *this;
 } 
@@ -62,7 +62,7 @@ BTree<Type> BTree<Type>::operator=(const BTree<Type>&){
 template <class Type>
 void BTree<Type>::copyTree(Node<Type>*curr){
     if(curr) {
-        insert(curr->tem);
+        insert(curr->item);
         copyTree(curr->left);
         copyTree(curr->right);
     }
@@ -91,9 +91,9 @@ template <class Type>
 void BTree<Type>::insert(Type item){
     if(root == nullptr){
         root = new Node<Type>;
-        root-> item = item;
+        root->item = item;
         root->left = nullptr;
-        root-> right = nullptr;
+        root->right = nullptr;
     }
     else{
         insert(item, root);
@@ -101,7 +101,7 @@ void BTree<Type>::insert(Type item){
 }
 
 template <class Type>
-void BTree<Type>::insert(Type item, Node<Type> * curr){
+void BTree<Type>::insert(Type item, Node<Type> *curr){
     if(item < curr->item) {
         if (curr->left == nullptr){
             auto tmp = new Node<Type>;
@@ -111,7 +111,7 @@ void BTree<Type>::insert(Type item, Node<Type> * curr){
             curr->left = tmp;
         }
         else{
-            insert(item, curr->left)
+            insert(item, curr->left);
         }//this ends the inner if
     }// this ends the outter if
 else{
@@ -123,7 +123,7 @@ else{
             curr->right = tmp;
         }
         else{
-            insert(item, curr->right)
+            insert(item, curr->right);
         }//this ends the inner if
 }
 }//this ends the insert
