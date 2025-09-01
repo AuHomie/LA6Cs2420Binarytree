@@ -36,8 +36,8 @@ class BTree {
     protected:
         Node<Type> *root;
 
-
     private:
+
     void copyTree(Node<Type>*curr);
     void destroy(Node<Type> *curr);
     void insert(Type item, Node<Type>* curr);
@@ -87,5 +87,46 @@ void BTree<Type>::destroy(Node<Type> *curr){
         delete curr;
     }
 }
+
+template <class Type>
+void BTree<Type>::insert(Type item){
+    if(root == nullptr){
+        root = new Node<Type>;
+        root-> item = item;
+        root->left = nullptr;
+        root-> right = nullptr;
+    }
+    else{
+        insert(item, root);
+    }
+}
+
+template <class Type>
+void BTree<Type>::insert(Type item, Node<Type> * curr){
+    if(item < curr->item) {
+        if (curr->left == nullptr){
+            auto tmp = new Node<Type>;
+            tmp->item = item;
+            tmp->right = nullptr;
+            tmp->left = nullptr;
+            curr->left = tmp;
+        }
+        else{
+            insert(item, curr->left)
+        }//this ends the inner if
+    }// this ends the outter if
+else{
+    if (curr->right == nullptr){
+            auto tmp = new Node<Type>;
+            tmp->item = item;
+            tmp->right = nullptr;
+            tmp->left = nullptr;
+            curr->right = tmp;
+        }
+        else{
+            insert(item, curr->right)
+        }//this ends the inner if
+}
+}//this ends the insert
 
 #endif
