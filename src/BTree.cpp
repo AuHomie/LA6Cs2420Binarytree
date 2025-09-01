@@ -10,7 +10,6 @@ struct Node{
 
 };
 
-
 template <class Type>
 class BTree {
 
@@ -18,17 +17,13 @@ class BTree {
 
         BTree(); //Constructor: Creates an empty tree
 
-        BTree(const BTree&); //Constructor: Creates a copy of a tree
+        BTree(const BTree<Type>&); //Constructor: Creates a copy of a tree
 
-        BTree& operator=(const BTree&); //Overaloaded assignment operator. Copies the BTree
+        BTree<Type> operator=(const BTree<Type>&); //Overaloaded assignment operator. Copies the BTree
 
-        ~BTree();
-        delete root; //Destructor: Deallocates memory
+        ~BTree(); //Destructor: Deallocates memory
 
-        void insert(Type data){
-
-
-        }; //Inserts a node into the tree
+        void insert(Type data){}; //Inserts a node into the tree
 
         void preOrder(); //Displays a pre-order traversal of the tree
 
@@ -43,8 +38,36 @@ class BTree {
 
 
     private:
-        void destroy(Node<Type> *curr);
+    void copyTree(Node<Type>*curr);
+    void destroy(Node<Type> *curr);
+    void insert(Type item, Node<Type>* curr);
+    void preOder(Node<Type>* curr);
+    void inOrder(Node<Type>* curr);
+    void postOrder(Node<Type>* curr);
 };
+
+//Constructor: Creates a copy of a tree
+template <class Type>
+BTree<Type>::BTree(const BTree<Type>&){
+    copyTree(b.root);
+
+}
+
+//Overaloaded assignment operator. Copies the BTree
+template <class Type>
+BTree<Type> BTree<Type>::operator=(const BTree<Type>&){
+    copyTree(b.root);
+    return *this;
+} 
+
+template <class Type>
+void BTree<Type>::copyTree(Node<Type>*curr){
+    if(curr) {
+        insert(curr->tem);
+        copyTree(curr->left);
+        copyTree(curr->right);
+    }
+}
 
 template <class Type>
 BTree<Type>::BTree(){
