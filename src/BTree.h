@@ -7,7 +7,6 @@ struct Node{
     Type item;
     Node<Type> *left;
     Node<Type> *right;
-
 };
 
 template <class Type>
