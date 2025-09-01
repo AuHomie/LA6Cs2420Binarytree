@@ -38,22 +38,22 @@ class BTree {
 
     private:
 
-    void copyTree(Node<Type>*curr);
-    void destroy(Node<Type> *curr);
-    void insert(Type item, Node<Type>* curr);
-    void preOder(Node<Type>* curr);
-    void inOrder(Node<Type>* curr);
-    void postOrder(Node<Type>* curr);
+        void copyTree(Node<Type>*curr);
+        void destroy(Node<Type> *curr);
+        void insert(Type item, Node<Type>* curr);
+        void preOrder(Node<Type>* curr);
+        void inOrder(Node<Type>* curr);
+        void postOrder(Node<Type>* curr);
+        int nodeCount(Node<Type>* curr);
+
 };
 
-//Constructor: Creates a copy of a tree
 template <class Type>
 BTree<Type>::BTree(const BTree<Type>&){
     copyTree(b.root);
 
 }
 
-//Overaloaded assignment operator. Copies the BTree
 template <class Type>
 BTree<Type> BTree<Type>::operator=(const BTree<Type>&){
     copyTree(b.root);
@@ -128,5 +128,64 @@ else{
         }//this ends the inner if
 }
 }//this ends the insert
+
+template <class Type>
+void BTree<Type>:: preOrder(){
+    std::cout << "Pre Order: ";
+        preOrder(root);
+} 
+
+template <class Type>
+void BTree<Type>:: inOrder(){
+    std::cout << "In Order: ";
+        inOrder(root);
+} 
+    
+template <class Type>
+void BTree<Type>:: postOrder(){
+    std::cout << "Post Order: ";
+        postOrder(root);
+} 
+
+template <class Type>
+void BTree<Type>::preOrder(Node<Type>* curr){
+    if(curr){
+       std:: cout << curr->item << " ";
+        preOrder(curr->left);
+        preOrder(curr->right);
+    }
+}
+    
+template <class Type>
+void BTree<Type>::inOrder(Node<Type>* curr){
+   if(curr){
+        preOrder(curr->left);
+        std::cout << curr->item << " ";
+        preOrder(curr->right);
+    }
+}
+   
+template <class Type>
+void BTree<Type>::postOrder(Node<Type>* curr){
+      if(curr){
+        preOrder(curr->left);
+        preOrder(curr->right);
+        std::cout << curr->item << " ";
+    }
+}
+
+template <class Type>
+int BTree<Type>::nodeCount(){
+    return nodeCount(root);
+}; 
+
+template <class Type>
+int BTree<Type>::nodeCount(Node<Type>* curr){
+    if(curr){
+        return 1 + nodeCount(curr->left) + nodeCount(curr->right);
+    }
+    return 0;
+}; 
+
 
 #endif
