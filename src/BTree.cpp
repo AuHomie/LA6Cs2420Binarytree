@@ -159,17 +159,17 @@ void BTree<Type>::preOrder(Node<Type>* curr){
 template <class Type>
 void BTree<Type>::inOrder(Node<Type>* curr){
    if(curr){
-        preOrder(curr->left);
+        inOrder(curr->left);
         std::cout << curr->item << " ";
-        preOrder(curr->right);
+        inOrder(curr->right);
     }
 }
    
 template <class Type>
 void BTree<Type>::postOrder(Node<Type>* curr){
       if(curr){
-        preOrder(curr->left);
-        preOrder(curr->right);
+        postOrder(curr->left);
+        postOrder(curr->right);
         std::cout << curr->item << " ";
     }
 }
